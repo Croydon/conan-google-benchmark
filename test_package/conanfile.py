@@ -11,15 +11,6 @@ class BenchmarkConanPackageTest(ConanFile):
         cmake.configure()
         cmake.build()
 
-    def imports(self):
-        for ext in (".dll", ".pdb"):
-            self.copy(pattern="*{!s}".format(ext), dst="bin", src="bin")
-        for ext in (".lib", ".a", ".so*", ".dylib*"):
-            self.copy(pattern="*{!s}".format(ext), dst="lib", src="lib")
-
-    #def test(self):
-        #self.run(os.sep.join([".", "bin", "BenchmarkPackageTest"]))
-
     def test(self):
         with tools.environment_append(RunEnvironment(self).vars):
             bin_path = os.path.join("bin", "BenchmarkPackageTest")
