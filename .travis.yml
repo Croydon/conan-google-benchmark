@@ -2,7 +2,7 @@ env:
    global:
      - CONAN_REFERENCE: "benchmark/1.3.0"
      - CONAN_USERNAME: "conan"
-     - CONAN_LOGIN_USERNAME: "jjones646"
+     - CONAN_LOGIN_USERNAME: "croydon"
      - CONAN_CHANNEL: "testing"
      - CONAN_UPLOAD: 0
      - CONAN_STABLE_BRANCH_PATTERN: "release/*"

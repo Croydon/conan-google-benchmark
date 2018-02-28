@@ -9,8 +9,8 @@ class GoogleBenchmarkConan(ConanFile):
     name = 'benchmark'
     version = '1.3.0'
     description = 'A microbenchmark support library.'
-    url = 'http://github.com/jjones646/conan-google-benchmark'
-    license = 'https://github.com/google/benchmark/blob/v1.3.0/LICENSE'
+    url = 'http://github.com/croydon/conan-google-benchmark'
+    license = 'Apache-2.0'
     settings = 'arch', 'build_type', 'compiler', 'os'
     options = {
         'enable_lto': [True, False],
