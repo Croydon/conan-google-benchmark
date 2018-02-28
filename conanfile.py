@@ -46,8 +46,7 @@ class GoogleBenchmarkConan(ConanFile):
 
     def package(self):
         self.copy(pattern="*.h", dst="include", src="include")
-        self.copy(pattern="*{!s}*".format(self.name), dst="lib", src=".", keep_path=False)
-        self.copy(pattern="conan_run.log", dst=".", keep_path=False)
+        self.copy(pattern="*benchmark*", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
         # let consuming projects know what library name is used for linking
