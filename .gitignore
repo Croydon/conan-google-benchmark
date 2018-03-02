@@ -1,5 +1,7 @@
 # Conan
 conanbuildinfo.txt
+conanbuildinfo.cmake
+conaninfo.txt
 CMakeFiles/
 CMakeCache.txt
 

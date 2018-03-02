@@ -47,7 +47,7 @@ class GoogleBenchmarkConan(ConanFile):
 
     def package(self):
         self.copy(pattern="*.h", dst="include", src="include")
-        self.copy(pattern="*benchmark*", dst="lib", src=".", keep_path=False)
+        self.copy(pattern="*benchmark*", dst="lib", src="benchmark/lib/", keep_path=False)
         self.copy(pattern="*.cmake", dst=".", src="lib/cmake/benchmark/", keep_path=False)
 
     def package_info(self):
