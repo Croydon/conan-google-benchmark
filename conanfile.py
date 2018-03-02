@@ -24,10 +24,7 @@ class GoogleBenchmarkConan(ConanFile):
 
     def source(self):
         archive_url = "https://github.com/google/benchmark/archive/v{!s}.zip".format(self.version)
-        tools.download(archive_url, "benchmark.zip")
-        tools.check_sha256("benchmark.zip", "51c2d2d35491aea83aa6121afc4a1fd9262fbd5ad679eb5e03c9fa481e42571e")
-        tools.unzip("benchmark.zip")
-        os.unlink("benchmark.zip")
+        tools.get(archive_url, sha256="51c2d2d35491aea83aa6121afc4a1fd9262fbd5ad679eb5e03c9fa481e42571e")
         shutil.move("benchmark-{!s}".format(self.version), "benchmark")
 
     def build(self):
