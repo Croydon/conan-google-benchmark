@@ -1,8 +1,6 @@
-import os
 import shutil
 
 from conans import ConanFile, CMake, tools
-from conans.errors import ConanException
 
 
 class GoogleBenchmarkConan(ConanFile):
@@ -28,18 +26,17 @@ class GoogleBenchmarkConan(ConanFile):
         shutil.move("benchmark-{!s}".format(self.version), "benchmark")
 
     def build(self):
-        cmake = CMake(self, parallel=True)
+        cmake = CMake(self)
         cmake.definitions["BUILD_SHARED_LIBS"] = "ON" if self.options.shared else "OFF"
         cmake.definitions["BENCHMARK_ENABLE_TESTING"] = "OFF"
         cmake.definitions["BENCHMARK_ENABLE_LTO"] = "ON" if self.options.enable_lto else "OFF"
         cmake.definitions["BENCHMARK_ENABLE_EXCEPTIONS"] = "ON" if self.options.enable_exceptions else "OFF"
+        cmake.definitions["BENCHMARK_USE_LIBCXX"] = "ON" if (self.settings.compiler.libcxx == "libc++") else "OFF"
+
         # See https://github.com/google/benchmark/pull/523
         if self.settings.os != "Windows":
             cmake.definitions["BENCHMARK_BUILD_32_BITS"] = "ON" if "64" not in str(self.settings.arch) else "OFF"
-        try:
-            cmake.definitions["BENCHMARK_USE_LIBCXX"] = "ON" if (self.settings.compiler.libcxx == "libc++") else "OFF"
-        except ConanException:
-            pass
+
         cmake.configure()
         cmake.build(target="install")
         cmake.patch_config_paths()
