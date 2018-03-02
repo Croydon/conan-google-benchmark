@@ -48,9 +48,9 @@ class GoogleBenchmarkConan(ConanFile):
         cmake.patch_config_paths()
 
     def package(self):
-        self.copy(pattern="*.h", dst="include", src="include/benchmark/", keep_path=False)
+        self.copy(pattern="*.h", dst="include", src="include/benchmark", keep_path=False)
         self.copy(pattern="*", dst="lib", src="lib", keep_path=False)
-        self.copy(pattern="*", dst=".", src="lib/cmake/benchmark/", keep_path=False)
+        self.copy(pattern="*", dst=".", src="lib/cmake/benchmark", keep_path=False)
 
     def package_info(self):
         # let consuming projects know what library name is used for linking
