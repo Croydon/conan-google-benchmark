@@ -31,14 +31,18 @@ class GoogleBenchmarkConan(ConanFile):
         cmake.definitions["BENCHMARK_ENABLE_TESTING"] = "OFF"
         cmake.definitions["BENCHMARK_ENABLE_LTO"] = "ON" if self.options.enable_lto else "OFF"
         cmake.definitions["BENCHMARK_ENABLE_EXCEPTIONS"] = "ON" if self.options.enable_exceptions else "OFF"
-        cmake.definitions["BENCHMARK_USE_LIBCXX"] = "ON" if (self.settings.compiler.libcxx == "libc++") else "OFF"
+        if self.settings.compiler.libcxx == "libc++":
+            cmake.definitions["BENCHMARK_USE_LIBCXX"] = "ON"
+        else:
+            cmake.definitions["BENCHMARK_USE_LIBCXX"] = "OFF"
 
         # See https://github.com/google/benchmark/pull/523
         if self.settings.os != "Windows":
             cmake.definitions["BENCHMARK_BUILD_32_BITS"] = "ON" if "64" not in str(self.settings.arch) else "OFF"
 
         cmake.configure()
-        cmake.build(target="install")
+        cmake.build()
+        cmake.install()
         cmake.patch_config_paths()
 
     def package(self):
