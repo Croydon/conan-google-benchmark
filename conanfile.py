@@ -16,9 +16,8 @@ class GoogleBenchmarkConan(ConanFile):
         "shared": [True, False]
     }
     default_options = "enable_lto=False", "enable_exceptions=True", "shared=False"
-    exports_sources = "CMakeLists.txt"
+    exports_sources = "CMakeLists.txt", "benchmarkConfig.cmake"
     generators = "cmake"
-    build_policy = "missing"
 
     def source(self):
         archive_url = "https://github.com/google/benchmark/archive/v{!s}.zip".format(self.version)
@@ -47,8 +46,9 @@ class GoogleBenchmarkConan(ConanFile):
 
     def package(self):
         self.copy(pattern="*.h", dst="include", src="include/benchmark", keep_path=False)
+        self.copy("benchmarkConfig.cmake", dst=".", src=".", keep_path=False)
         self.copy(pattern="*", dst="lib", src="lib", keep_path=False)
-        self.copy(pattern="*", dst=".", src="lib/cmake/benchmark", keep_path=False)
+
 
     def package_info(self):
         # let consuming projects know what library name is used for linking
